@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+  <cron>
+    <url>/sys/createExecuteQueryTask</url>
+    <description>create "execute query" tasks.</description>
+    <schedule>every 15 minutes</schedule>
+  </cron>
+  <cron>
+    <url>/sys/countDaily</url>
+    <description>create daily reports.</description>
+    <schedule>every day 01:00</schedule>
+    <timezone>Asia/Tokyo</timezone>
+  </cron>
+</cronentries>

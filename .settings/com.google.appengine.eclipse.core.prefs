@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+filesCopiedToWebInfLib=appengine-api-1.0-sdk-1.2.6.jar|appengine-api-labs-1.2.6.jar
+ormEnhancementInclusions=
+validationExclusions=src/misc/java/**/*

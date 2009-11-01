@@ -1,0 +1,5 @@
+<datastore-indexes autoGenerate="true">
+    <datastore-index kind="wicket-session" ancestor="true" source="manual">
+        <property name="version" direction="asc"/>
+    </datastore-index>
+</datastore-indexes>
