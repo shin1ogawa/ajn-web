@@ -23,6 +23,7 @@ import appengine.test.util.AppEngineTestUtil;
 import com.appspot.ajnweb.meta.DailyMeta;
 import com.appspot.ajnweb.meta.TweetMeta;
 import com.appspot.ajnweb.model.Daily;
+import com.appspot.ajnweb.model.Tweet;
 
 import static org.hamcrest.Matchers.*;
 
@@ -63,6 +64,20 @@ public class DailyServiceTest {
 		daily = DailyService.getDaily(2009, 10, 28);
 		assertThat(daily, is(not(nullValue())));
 		assertThat(daily.getCount(), is(equalTo(15)));
+	}
+
+	/**
+	 * {@link DailyService#getDailyTweets(int, int, int)}
+	 * <p>降順にソートされる</p>
+	 */
+	@Test
+	public void getDailyTweets() {
+		List<Tweet> tweets = DailyService.getDailyTweets(2009, 10, 26);
+		assertThat(tweets.size(), is(equalTo(8)));
+		for (int i = 0; i < 8 - 1; i++) {
+			assertThat(tweets.get(i).getCreatedAt(), is(greaterThan(tweets.get(i + 1)
+				.getCreatedAt())));
+		}
 	}
 
 	/**

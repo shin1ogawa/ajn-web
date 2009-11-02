@@ -64,7 +64,8 @@ public class DailyService {
 		Date end = getEnd(year, month, day);
 		list =
 				Datastore.query(tweetMeta).filter(tweetMeta.createdAt.greaterThanOrEqual(start))
-					.filter(tweetMeta.createdAt.lessThanOrEqual(end)).asList();
+					.filter(tweetMeta.createdAt.lessThanOrEqual(end))
+					.sort(tweetMeta.createdAt.desc).asList();
 		MemcacheUtil.put(memcacheKey, list);
 		return list;
 	}
