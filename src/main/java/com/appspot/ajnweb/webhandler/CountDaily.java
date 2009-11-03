@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 
 import twitter4j.Twitter;
+import appengine.util.AppEngineUtil;
 
 import com.appspot.ajnweb.service.ApplicationSettingService;
 import com.appspot.ajnweb.service.DailyService;
@@ -46,29 +47,34 @@ public class CountDaily extends HttpServlet {
 				day = calendar.get(Calendar.DATE);
 			}
 			DailyService.summary(year, month, day);
-			try {
-				String ymdString = String.format("%04d-%02d-%02d", year, month, day);
-				String twitterUser =
-						ApplicationSettingService.get(
-								ApplicationSettingService.SettingKey.TWITTER_USER, "");
-				String twitterPassword =
-						ApplicationSettingService.get(
-								ApplicationSettingService.SettingKey.TWITTER_PASSWORD, "");
-				if (StringUtils.isNotEmpty(twitterUser) && StringUtils.isNotEmpty(twitterPassword)) {
-					Twitter twitter = new Twitter(twitterUser, twitterPassword);
-					String status =
-							ymdString + "のAppEngine関連のつぶやきをまとめました。 http://ajn-web.appspot.com/day/"
-									+ ymdString;
-					twitter.updateStatus(status);
-				}
-			} catch (Throwable th) {
-				Logger.getLogger(CountDaily.class.getName()).log(Level.WARNING, "集計報告のつぶやきに失敗したお",
-						th);
+			if (AppEngineUtil.isDeployment()) {
+				updateStatus(year, month, day);
 			}
 			resp.setStatus(HttpServletResponse.SC_OK);
 		} catch (Exception e) {
 			Logger.getLogger(CountDaily.class.getName()).log(Level.WARNING, "日別集計に失敗しますた。", e);
 			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	private void updateStatus(int year, int month, int day) {
+		try {
+			String ymdString = String.format("%04d-%02d-%02d", year, month, day);
+			String twitterUser =
+					ApplicationSettingService.get(
+							ApplicationSettingService.SettingKey.TWITTER_USER, "");
+			String twitterPassword =
+					ApplicationSettingService.get(
+							ApplicationSettingService.SettingKey.TWITTER_PASSWORD, "");
+			if (StringUtils.isNotEmpty(twitterUser) && StringUtils.isNotEmpty(twitterPassword)) {
+				Twitter twitter = new Twitter(twitterUser, twitterPassword);
+				String status =
+						ymdString + "のAppEngine関連のつぶやきをまとめました。 http://ajn-web.appspot.com/day/"
+								+ ymdString;
+				twitter.updateStatus(status);
+			}
+		} catch (Throwable th) {
+			Logger.getLogger(CountDaily.class.getName()).log(Level.WARNING, "集計報告のつぶやきに失敗したお", th);
 		}
 	}
 }
