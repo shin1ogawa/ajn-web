@@ -61,12 +61,17 @@ public class MigrationTweet1To2 {
 	 * @throws TwitterException
 	 */
 	public static void main(String[] args) throws IOException, TwitterException {
-		setUpBeforeClass();
+		setUpBeforeClass(); // ローカルのAppEngine環境を開始する
 		try {
+			// デプロイ環境のMakeSyncCallServletに接続するためのアカウント情報を入力させる
 			getAccountInfo();
+			// 移行対象のエンティティを取得する
 			final List<Tweet> tweets = getOldEntities();
+			// ローカルのデータストアにバックアップを作成する
 			backupToLocalDatastore(tweets);
+			// データ移行済みのエンティティを作成する
 			final List<Tweet> updated = createUpdatedEntity(tweets, 50);
+			// デプロイ環境側のデータストアに、データ移行済みのエンティティを保存する
 			MakeSyncCallServletDelegate.runInDelegateWithAuth(new Runnable() {
 
 				@Override
@@ -75,7 +80,7 @@ public class MigrationTweet1To2 {
 				}
 			}, email, password, SERVER, SERVLET);
 		} finally {
-			tearDownAfterClass();
+			tearDownAfterClass(); // ローカルのAppEngine環境を終了する
 		}
 	}
 
