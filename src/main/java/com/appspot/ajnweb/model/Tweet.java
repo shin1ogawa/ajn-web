@@ -22,7 +22,7 @@ public class Tweet implements Serializable {
 	private static final long serialVersionUID = 82952814930599860L;
 
 	/** スキーマのバージョン。構造が変わったら更新する事！ */
-	private int schemaVersion = 1;
+	private int schemaVersion = 2;
 
 	@Attribute(primaryKey = true)
 	private Key key;
@@ -36,6 +36,8 @@ public class Tweet implements Serializable {
 	private Integer userId;
 
 	private String userName;
+
+	private String screenName;
 
 	@Attribute(lob = true)
 	private String text;
@@ -56,6 +58,7 @@ public class Tweet implements Serializable {
 		instance.setInReplyToUserId(status.getInReplyToUserId());
 		instance.setText(status.getText());
 		instance.setUserId(status.getUser().getId());
+		instance.setScreenName(status.getUser().getScreenName());
 		instance.setUserName(status.getUser().getName());
 		instance.setUserProfileImageUrl(status.getUser().getProfileImageURL().toString());
 		return instance;
@@ -203,5 +206,21 @@ public class Tweet implements Serializable {
 	 */
 	public void setUserProfileImageUrl(String userProfileImageUrl) {
 		this.userProfileImageUrl = userProfileImageUrl;
+	}
+
+	/**
+	 * @param screenName the screenName to set
+	 * @category accessor
+	 */
+	public void setScreenName(String screenName) {
+		this.screenName = screenName;
+	}
+
+	/**
+	 * @return the screenName
+	 * @category accessor
+	 */
+	public String getScreenName() {
+		return screenName;
 	}
 }

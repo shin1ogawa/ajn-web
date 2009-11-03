@@ -36,7 +36,7 @@ public class TweetDataView extends DataView<Tweet> {
 	@Override
 	protected void populateItem(Item<Tweet> item) {
 		Tweet tweet = item.getModelObject();
-		item.add(new DateLabel("createdAt", tweet.getCreatedAt(), "yyyy-MM-dd HH:mm:ss"));
+		item.add(new TwitterStatusLink("createdAt", tweet));
 		item.add(new TwitterUserLink("userName", tweet));
 		item.add(new TwitterUserImage("userProfileImageUrl", tweet));
 		item.add(new Label("text", tweet.getText()));

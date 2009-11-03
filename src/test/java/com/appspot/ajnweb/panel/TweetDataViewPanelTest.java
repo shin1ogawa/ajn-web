@@ -47,7 +47,7 @@ public class TweetDataViewPanelTest extends AbstractPageTest {
 		tester.assertRenderedPage(DummyPanelPage.class);
 		tester.assertComponent(TEST_PANEL_ID, TweetDataViewPanel.class);
 		tester.assertComponent(TEST_PANEL_ID + ":container:list", DataView.class);
-		tester.assertComponent(TEST_PANEL_ID + ":container:list:1:createdAt", Label.class);
+		tester.assertComponent(TEST_PANEL_ID + ":container:list:1:createdAt", ExternalLink.class);
 		tester.assertComponent(TEST_PANEL_ID + ":container:list:1:userName", ExternalLink.class);
 		tester
 			.assertComponent(TEST_PANEL_ID + ":container:list:1:userProfileImageUrl", Image.class);
