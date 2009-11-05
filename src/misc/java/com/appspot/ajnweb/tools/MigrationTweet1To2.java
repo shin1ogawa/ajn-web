@@ -45,10 +45,6 @@ public class MigrationTweet1To2 {
 
 	static final String SERVLET = "sys/makesynccall";
 
-	static final String backupFolderName1 = "target/MigrationTweet1To2/before/";
-
-	static final String backupFolderName2 = "target/MigrationTweet1To2/after/";
-
 	static String email;
 
 	static String password;
@@ -95,6 +91,7 @@ public class MigrationTweet1To2 {
 			if (++bufferCount == 100) {
 				Datastore.put(buffer);
 				buffer.clear();
+				bufferCount = 0;
 			}
 		}
 		if (buffer.isEmpty() == false) {
