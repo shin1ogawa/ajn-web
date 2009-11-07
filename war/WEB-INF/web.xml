@@ -46,6 +46,14 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     <servlet-name>makesynccall</servlet-name>
     <url-pattern>/sys/makesynccall</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>readonly_makesynccall</servlet-name>
+    <servlet-class>com.appspot.ajnweb.webhandler.ReadOnlyMakeSyncCallServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>readonly_makesynccall</servlet-name>
+    <url-pattern>/makesynccall</url-pattern>
+  </servlet-mapping>
   
   <!-- wicket filter -->
   <filter>
