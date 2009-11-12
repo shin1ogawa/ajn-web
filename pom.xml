@@ -60,6 +60,23 @@
       <version>EA1-SNAPSHOT</version>
       <type>jar</type>
     </dependency>
+    <dependency>
+      <groupId>org.slim3</groupId>
+      <artifactId>slim3-gen</artifactId>
+      <version>EA1-SNAPSHOT</version>
+      <scope>compile</scope>
+      <type>jar</type>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.ant</groupId>
+          <artifactId>ant</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.ant</groupId>
+          <artifactId>ant-launcher</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
     <!-- twitter4j -->
     <dependency>
       <groupId>net.homeip.yusuke</groupId>
@@ -128,8 +145,14 @@
   </dependencies>
   <repositories>
     <repository>
-      <id>project-m2repo</id>
-      <url>file://${basedir}/m2repo</url>
+      <id>maven.seasar.org</id>
+      <name>The Seasar Foundation Maven2 Repository</name>
+      <url>http://maven.seasar.org/maven2</url>
+    </repository>
+    <repository>
+      <id>maven.snapshot.seasar.org</id>
+      <name>The Seasar Foundation Maven2 Snapshot Repository</name>
+      <url>http://maven.seasar.org/maven2-snapshot</url>
     </repository>
     <repository>
       <id>gaejtools</id>
@@ -164,6 +187,17 @@
             <configuration>
               <sources>
                 <source>${eclipse.generated.src}</source>
+              </sources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>add-test-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-test-source</goal>
+            </goals>
+            <configuration>
+              <sources>
                 <source>src/misc/java</source>
               </sources>
             </configuration>
@@ -179,6 +213,18 @@
               <directory>war/WEB-INF/lib</directory>
               <includes>
                 <include>**/*.jar</include>
+              </includes>
+            </fileset>
+            <fileset>
+              <directory>${eclipse.generated.src}</directory>
+              <includes>
+                <include>**/*.*</include>
+              </includes>
+            </fileset>
+            <fileset>
+              <directory>lib</directory>
+              <includes>
+                <include>slim3-gen-*.jar</include>
               </includes>
             </fileset>
           </filesets>
@@ -211,21 +257,36 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
-        <configuration>
-          <outputDirectory>war/WEB-INF/lib</outputDirectory>
-          <includeScope>compile</includeScope>
-          <excludeArtifactIds>appengine-api-1.0-runtime,appengine-api-1.0-runtime-shared,appengine-api-1.0-stubs,appengine-tools-sdk</excludeArtifactIds>
-          <excludeGroupIds>javax.servlet,javax.transaction,org.openqa.selenium.webdriver,net.sourceforge.htmlunit,net.sourceforge.nekohtml</excludeGroupIds>
-          <overWriteReleases>false</overWriteReleases>
-          <overWriteSnapshots>true</overWriteSnapshots>
-          <overWriteIfNewer>true</overWriteIfNewer>
-        </configuration>
         <executions>
           <execution>
-            <phase>process-resources</phase>
+            <id>copy-dependencies-for-runtime</id>
+            <phase>generate-sources</phase>
             <goals>
               <goal>copy-dependencies</goal>
             </goals>
+            <configuration>
+              <outputDirectory>war/WEB-INF/lib</outputDirectory>
+              <includeScope>compile</includeScope>
+              <excludeArtifactIds>slim3-gen,appengine-api-1.0-runtime,appengine-api-1.0-runtime-shared,appengine-api-1.0-stubs,appengine-tools-sdk</excludeArtifactIds>
+              <excludeGroupIds>javax.servlet,javax.transaction</excludeGroupIds>
+              <overWriteReleases>false</overWriteReleases>
+              <overWriteSnapshots>true</overWriteSnapshots>
+              <overWriteIfNewer>true</overWriteIfNewer>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-dependencies-for-apt</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>lib</outputDirectory>
+              <includeArtifactIds>slim3-gen</includeArtifactIds>
+              <overWriteReleases>false</overWriteReleases>
+              <overWriteSnapshots>true</overWriteSnapshots>
+              <overWriteIfNewer>true</overWriteIfNewer>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -235,6 +296,22 @@
         <configuration>
           <warSourceDirectory>war</warSourceDirectory>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>apt-maven-plugin</artifactId>
+        <configuration>
+          <factory>org.slim3.gen.processor.ModelProcessorFactory</factory>
+          <outputDirectory>${eclipse.generated.src}</outputDirectory>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>process</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -250,6 +327,7 @@
             <exclude>com.google.appengine:appengine-api-1.0-runtime-shared</exclude>
             <exclude>xerces:xercesImpl</exclude>
             <exclude>xalan:xalan</exclude>
+            <exclude>org.slim3:slim3-gen</exclude>
           </excludes>
           <additionalProjectnatures>
             <projectnature>com.google.appengine.eclipse.core.gaeNature</projectnature>
@@ -286,6 +364,16 @@ validationExclusions=src/misc/java/**/*
             </file>
             <!-- apt -->
             <file>
+              <name>.factorypath</name>
+              <content>
+                <![CDATA[
+<factorypath>
+    <factorypathentry kind="WKSPJAR" id="/${artifactId}/lib/slim3-gen-EA1-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
+</factorypath>
+                 ]]>
+              </content>
+            </file>
+            <file>
               <name>.settings/org.eclipse.jdt.apt.core.prefs</name>
               <content>
                 <![CDATA[
@@ -297,12 +385,36 @@ org.eclipse.jdt.apt.reconcileEnabled=false
               </content>
             </file>
             <file>
-              <name>.factorypath</name>
-              <content>
-                <![CDATA[
-<factorypath>
-    <factorypathentry kind="WKSPJAR" id="/ajn-web/m2repo/org/slim3/slim3-gen/EA1-SNAPSHOT/slim3-gen-EA1-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
-</factorypath>
+              <name>${artifactId}.launch</name>
+              <content> <![CDATA[
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="com.google.gdt.eclipse.suite.webapp">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/${artifactId}"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="4"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+<listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
+<listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
+</listAttribute>
+<listAttribute key="org.eclipse.jdt.launching.CLASSPATH">
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry containerPath=&quot;org.eclipse.jdt.launching.JRE_CONTAINER&quot; javaProject=&quot;${artifactId}&quot; path=&quot;1&quot; type=&quot;4&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/${artifactId}/lib/appengine-agent.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/${artifactId}/lib/appengine-agentimpl.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/${artifactId}/lib/appengine-agentruntime.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/${artifactId}/lib/appengine-api-1.0-runtime-1.2.6.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/${artifactId}/lib/appengine-api-1.0-runtime-shared-1.2.6.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry id=&quot;org.eclipse.jdt.launching.classpathentry.defaultClasspath&quot;&gt;&#10;&lt;memento exportedEntriesOnly=&quot;false&quot; project=&quot;${artifactId}&quot;/&gt;&#10;&lt;/runtimeClasspathEntry&gt;&#10;"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="com.google.gwt.eclipse.core.moduleClasspathProvider"/>
+<booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="false"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="--address=0.0.0.0"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="${artifactId}"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-javaagent:../lib/appengine-agent.jar"/>
+<stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="/${artifactId}/war"/>
+</launchConfiguration>
                  ]]>
               </content>
             </file>

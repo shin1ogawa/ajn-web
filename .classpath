@@ -1,23 +1,21 @@
 <classpath>
   <classpathentry kind="src" path="src/test/java" output="target/test-classes" including="**/*.java"/>
+  <classpathentry kind="src" path="src/misc/java" output="target/test-classes" including="**/*.java"/>
   <classpathentry kind="src" path="src/test/resources" output="target/test-classes" excluding="**/*.java"/>
   <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
-  <classpathentry kind="src" path=".apt_generated" including="**/*.java"/>
-  <classpathentry kind="src" path="src/misc/java" including="**/*.java"/>
+  <classpathentry kind="src" path=".apt_generated"/>
   <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
   <classpathentry kind="output" path="war/WEB-INF/classes"/>
   <classpathentry kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar" sourcepath="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/google/appengine/appengine-api-1.0-runtime/1.2.6/appengine-api-1.0-runtime-1.2.6.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/google/appengine/appengine-api-1.0-stubs/1.2.6/appengine-api-1.0-stubs-1.2.6.jar"/>
-  <classpathentry kind="var" path="M2_REPO/cglib/cglib-nodep/2.1_3/cglib-nodep-2.1_3.jar" sourcepath="M2_REPO/cglib/cglib-nodep/2.1_3/cglib-nodep-2.1_3-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0.jar" sourcepath="M2_REPO/commons-beanutils/commons-beanutils/1.8.0/commons-beanutils-1.8.0-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar" sourcepath="M2_REPO/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-io/commons-io/1.4/commons-io-1.4.jar" sourcepath="M2_REPO/commons-io/commons-io/1.4/commons-io-1.4-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-lang/commons-lang/2.4/commons-lang-2.4.jar" sourcepath="M2_REPO/commons-lang/commons-lang/2.4/commons-lang-2.4-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar" sourcepath="M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/jp/sourceforge/gaejtools/gaejtools-util/1.2.6-SNAPSHOT/gaejtools-util-1.2.6-SNAPSHOT.jar" sourcepath="M2_REPO/jp/sourceforge/gaejtools/gaejtools-util/1.2.6-SNAPSHOT/gaejtools-util-1.2.6-SNAPSHOT-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/jp/sourceforge/gaejtools/gaejtools-wicket-util/1.2.6-SNAPSHOT/gaejtools-wicket-util-1.2.6-SNAPSHOT.jar" sourcepath="M2_REPO/jp/sourceforge/gaejtools/gaejtools-wicket-util/1.2.6-SNAPSHOT/gaejtools-wicket-util-1.2.6-SNAPSHOT-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/com/google/code/guice/guice/1.0/guice-1.0.jar" sourcepath="M2_REPO/com/google/code/guice/guice/1.0/guice-1.0-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/jp/sourceforge/gaejtools/gaejtools-wicket-util/1.2.6-SNAPSHOT/gaejtools-wicket-util-1.2.6-SNAPSHOT.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar" sourcepath="M2_REPO/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/hamcrest/hamcrest-library/1.1/hamcrest-library-1.1.jar" sourcepath="M2_REPO/org/hamcrest/hamcrest-library/1.1/hamcrest-library-1.1-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/jdom/jdom/1.0/jdom-1.0.jar" sourcepath="M2_REPO/jdom/jdom/1.0/jdom-1.0-sources.jar"/>
@@ -29,10 +27,7 @@
   <classpathentry kind="var" path="M2_REPO/org/slim3/slim3/EA1-SNAPSHOT/slim3-EA1-SNAPSHOT.jar" sourcepath="M2_REPO/org/slim3/slim3/EA1-SNAPSHOT/slim3-EA1-SNAPSHOT-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/net/homeip/yusuke/twitter4j/2.0.10/twitter4j-2.0.10.jar" sourcepath="M2_REPO/net/homeip/yusuke/twitter4j/2.0.10/twitter4j-2.0.10-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/apache/wicket/wicket/1.4.3/wicket-1.4.3.jar" sourcepath="M2_REPO/org/apache/wicket/wicket/1.4.3/wicket-1.4.3-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/apache/wicket/wicket-auth-roles/1.4.2/wicket-auth-roles-1.4.2.jar" sourcepath="M2_REPO/org/apache/wicket/wicket-auth-roles/1.4.2/wicket-auth-roles-1.4.2-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/apache/wicket/wicket-extensions/1.4.3/wicket-extensions-1.4.3.jar" sourcepath="M2_REPO/org/apache/wicket/wicket-extensions/1.4.3/wicket-extensions-1.4.3-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/apache/wicket/wicket-guice/1.4.2/wicket-guice-1.4.2.jar" sourcepath="M2_REPO/org/apache/wicket/wicket-guice/1.4.2/wicket-guice-1.4.2-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/org/apache/wicket/wicket-ioc/1.4.2/wicket-ioc-1.4.2.jar" sourcepath="M2_REPO/org/apache/wicket/wicket-ioc/1.4.2/wicket-ioc-1.4.2-sources.jar"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
 </classpath>

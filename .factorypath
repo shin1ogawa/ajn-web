@@ -1,3 +1,3 @@
 <factorypath>
-    <factorypathentry kind="WKSPJAR" id="/ajn-web/m2repo/org/slim3/slim3-gen/EA1-SNAPSHOT/slim3-gen-EA1-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="WKSPJAR" id="/ajn-web/lib/slim3-gen-EA1-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
 </factorypath>
