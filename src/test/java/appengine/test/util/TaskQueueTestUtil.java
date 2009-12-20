@@ -1,11 +1,14 @@
 package appengine.test.util;
 
+import java.util.concurrent.Future;
+
 import appengine.test.util.CustomizedDelegate.AbstractCustomizedDelegate;
 
 import com.google.appengine.api.labs.taskqueue.TaskQueuePb;
 import com.google.appengine.api.labs.taskqueue.TaskQueuePb.TaskQueueAddRequest;
 import com.google.appengine.api.labs.taskqueue.TaskQueuePb.TaskQueueAddResponse;
 import com.google.apphosting.api.ApiProxy;
+import com.google.apphosting.api.ApiProxy.ApiConfig;
 import com.google.apphosting.api.ApiProxy.ApiProxyException;
 import com.google.apphosting.api.ApiProxy.Environment;
 
@@ -64,6 +67,12 @@ public class TaskQueueTestUtil {
 			TaskQueuePb.TaskQueueAddResponse responsePb = new TaskQueuePb.TaskQueueAddResponse();
 			handler.addResponse(responsePb);
 			return response;
+		}
+
+		@Override
+		public Future<byte[]> makeAsyncCall(Environment env, String service, String method,
+				byte[] request, ApiConfig config) {
+			return getOriginal().makeAsyncCall(env, service, method, request, config);
 		}
 	}
 

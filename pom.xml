@@ -6,7 +6,7 @@
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
   <properties>
-    <appengine.version>1.2.6</appengine.version>
+    <appengine.version>1.3.0</appengine.version>
     <wicket.version>1.4.3</wicket.version>
     <eclipse.generated.src>.apt_generated</eclipse.generated.src>
   </properties>
@@ -120,7 +120,7 @@
     <dependency>
       <groupId>jp.sourceforge.gaejtools</groupId>
       <artifactId>gaejtools-wicket-util</artifactId>
-      <version>1.2.6-SNAPSHOT</version>
+      <version>${appengine.version}-SNAPSHOT</version>
     </dependency>
     <!--servlet -->
     <dependency>
@@ -356,7 +356,7 @@ encoding/<project>=UTF-8
               <content>
                 <![CDATA[
 eclipse.preferences.version=1
-filesCopiedToWebInfLib=appengine-api-1.0-sdk-1.2.6.jar|appengine-api-labs-1.2.6.jar
+filesCopiedToWebInfLib=appengine-api-1.0-sdk-${appengine.version}.jar|appengine-api-labs-${appengine.version}.jar
 ormEnhancementInclusions=
 validationExclusions=src/misc/java/**/*
                  ]]>
@@ -404,8 +404,8 @@ org.eclipse.jdt.apt.reconcileEnabled=false
 <listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/${artifactId}/lib/appengine-agent.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
 <listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/${artifactId}/lib/appengine-agentimpl.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
 <listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/${artifactId}/lib/appengine-agentruntime.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
-<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/${artifactId}/lib/appengine-api-1.0-runtime-1.2.6.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
-<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/${artifactId}/lib/appengine-api-1.0-runtime-shared-1.2.6.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/${artifactId}/lib/appengine-api-1.0-runtime-${appengine.version}.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
+<listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/${artifactId}/lib/appengine-api-1.0-runtime-shared-${appengine.version}.jar&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#10;"/>
 <listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#10;&lt;runtimeClasspathEntry id=&quot;org.eclipse.jdt.launching.classpathentry.defaultClasspath&quot;&gt;&#10;&lt;memento exportedEntriesOnly=&quot;false&quot; project=&quot;${artifactId}&quot;/&gt;&#10;&lt;/runtimeClasspathEntry&gt;&#10;"/>
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="com.google.gwt.eclipse.core.moduleClasspathProvider"/>

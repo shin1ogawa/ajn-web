@@ -20,7 +20,11 @@ public class ApplicationSettingService {
 		/** Twitterのアカウントのユーザ名 */
 		TWITTER_USER, //
 		/** Twitterのアカウントのパスワード */
-		TWITTER_PASSWORD;
+		TWITTER_PASSWORD,
+		/** Twitter:OAuth ConsumerKey */
+		TWITTER_OAUTH_CONSUMER_KEY,
+		/** Twitter:OAuth ConsumerSecret */
+		TWITTER_OAUTH_CONSUMER_SECRET;
 	}
 
 
