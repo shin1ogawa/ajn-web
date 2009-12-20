@@ -95,5 +95,8 @@ public class TwitterQueryService {
 				count = 0;
 			}
 		}
+		if (count > 0) {
+			queue.add(options);
+		}
 	}
 }
