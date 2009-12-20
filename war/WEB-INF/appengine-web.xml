@@ -11,7 +11,7 @@
     <include path="js/**.*"/>
   </static-files>
   
-  <precompilation-enable>true</precompilation-enable>
+  <precompilation-enabled>true</precompilation-enabled>
   <sessions-enabled>true</sessions-enabled>
   <inbound-services>
     <service>mail</service>
