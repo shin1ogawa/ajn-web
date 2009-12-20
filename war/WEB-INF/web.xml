@@ -35,6 +35,14 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     <servlet-name>countDaily</servlet-name>
     <url-pattern>/sys/countDaily</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>checkenv</servlet-name>
+    <servlet-class>com.appspot.ajnweb.webhandler.CheckEnvironment</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>checkenv</servlet-name>
+    <url-pattern>/sys/checkenv</url-pattern>
+  </servlet-mapping>
   
 
   <!-- makesynccall -->
