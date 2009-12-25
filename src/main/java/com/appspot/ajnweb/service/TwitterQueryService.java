@@ -1,6 +1,7 @@
 package com.appspot.ajnweb.service;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.slim3.datastore.Datastore;
 
@@ -24,6 +25,8 @@ import static com.google.appengine.api.labs.taskqueue.TaskOptions.Method.*;
  * @author shin1ogawa
  */
 public class TwitterQueryService {
+
+	final static Logger logger = Logger.getLogger(TwitterQueryService.class.getName());
 
 	final static String MEMCACHEKEY_ALL = TwitterQueryService.class.getName() + ":all";
 
@@ -83,7 +86,9 @@ public class TwitterQueryService {
 	 */
 	public static void executeQueryAndAddTask(String queryString) throws TwitterException {
 		Queue queue = QueueFactory.getQueue("background-processing");
+		logger.fine("query実行前");
 		List<Tweet> list = TwitterQueryService.query(queryString, 30);
+		logger.fine("query実行後");
 		int count = 0;
 		TaskOptions options = url("/sys/addTweets").method(GET);
 		for (Tweet tweet : list) {

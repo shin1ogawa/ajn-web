@@ -2,6 +2,7 @@ package com.appspot.ajnweb.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.slim3.datastore.Datastore;
 import org.slim3.datastore.EntityNotFoundRuntimeException;
@@ -20,6 +21,8 @@ import com.google.appengine.api.datastore.Key;
  * @author shin1ogawa
  */
 public class TweetService {
+
+	final static Logger logger = Logger.getLogger(TweetService.class.getName());
 
 	final static String MEMCACHEKEY_RECENT = TwitterQueryService.class.getName() + ":recent";
 
@@ -40,8 +43,20 @@ public class TweetService {
 			Key key = Datastore.createKey(meta, id);
 			try {
 				Datastore.get(key);
+				// すでに存在するtweetsなので取得対象にしない。
+				continue;
 			} catch (EntityNotFoundRuntimeException e) {
-				Status showStatus = twitter.showStatus(id);
+				Status showStatus;
+				try {
+					showStatus = twitter.showStatus(id);
+				} catch (TwitterException e1) {
+					if (e1.getStatusCode() == 404) {
+						// 404: No status found with that ID.
+						logger.info("idに対応するstatusが存在しません。 id=" + id);
+						continue;
+					}
+					throw e1;
+				}
 				tweets.add(Tweet.newInstance(showStatus));
 			}
 		}
