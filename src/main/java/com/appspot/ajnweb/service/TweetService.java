@@ -50,7 +50,11 @@ public class TweetService {
 				try {
 					showStatus = twitter.showStatus(id);
 				} catch (TwitterException e1) {
-					if (e1.getStatusCode() == 404) {
+					if (e1.getStatusCode() == 403) {
+						// 404: Sorry, you are not authorized to see this status.
+						logger.info("idに対応するstatusがprotectされているので取得しません。 id=" + id);
+						continue;
+					} else if (e1.getStatusCode() == 404) {
 						// 404: No status found with that ID.
 						logger.info("idに対応するstatusが存在しません。 id=" + id);
 						continue;

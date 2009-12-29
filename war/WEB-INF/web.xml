@@ -43,6 +43,18 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     <servlet-name>checkenv</servlet-name>
     <url-pattern>/sys/checkenv</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>wicketSessionCleanup</servlet-name>
+    <servlet-class>appengine.wicket.AppEngineWicketSessionCleanup</servlet-class>
+    <init-param>
+      <param-name>servletUrl</param-name>
+      <param-value>/sys/wicketSessionCleanup</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>wicketSessionCleanup</servlet-name>
+    <url-pattern>/sys/wicketSessionCleanup</url-pattern>
+  </servlet-mapping>
   
 
   <!-- makesynccall -->

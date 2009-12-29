@@ -1,6 +1,7 @@
 package com.appspot.ajnweb.service;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.slim3.datastore.Datastore;
@@ -16,6 +17,7 @@ import com.appspot.ajnweb.model.TwitterQuery;
 import com.google.appengine.api.labs.taskqueue.Queue;
 import com.google.appengine.api.labs.taskqueue.QueueFactory;
 import com.google.appengine.api.labs.taskqueue.TaskOptions;
+import com.google.apphosting.api.DeadlineExceededException;
 
 import static com.google.appengine.api.labs.taskqueue.TaskOptions.Builder.*;
 import static com.google.appengine.api.labs.taskqueue.TaskOptions.Method.*;
@@ -87,7 +89,15 @@ public class TwitterQueryService {
 	public static void executeQueryAndAddTask(String queryString) throws TwitterException {
 		Queue queue = QueueFactory.getQueue("background-processing");
 		logger.fine("query実行前");
-		List<Tweet> list = TwitterQueryService.query(queryString, 30);
+		long before = System.currentTimeMillis();
+		List<Tweet> list = null;
+		try {
+			list = TwitterQueryService.query(queryString, 30);
+		} catch (DeadlineExceededException ex) {
+			logger.log(Level.WARNING, "Twitter検索実行に時間がかかりすぎたので処理を中断します。ms="
+					+ (System.currentTimeMillis() - before), ex);
+			return;
+		}
 		logger.fine("query実行後");
 		int count = 0;
 		TaskOptions options = url("/sys/addTweets").method(GET);

@@ -11,6 +11,11 @@
     <schedule>every 1 minutes</schedule>
   </cron>
   <cron>
+    <url>/sys/wicketSessionCleanup</url>
+    <description>cleanup wicket session objects.</description>
+    <schedule>every 5 minutes</schedule>
+  </cron>
+  <cron>
     <url>/sys/countDaily</url>
     <description>create daily reports.</description>
     <schedule>every day 01:00</schedule>
