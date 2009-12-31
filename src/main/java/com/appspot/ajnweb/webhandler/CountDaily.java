@@ -47,7 +47,7 @@ public class CountDaily extends HttpServlet {
 				day = calendar.get(Calendar.DATE);
 			}
 			DailyService.summary(year, month, day);
-			if (AppEngineUtil.isDeployment()) {
+			if (AppEngineUtil.isProduction()) {
 				updateStatus(year, month, day);
 			}
 			resp.setStatus(HttpServletResponse.SC_OK);
