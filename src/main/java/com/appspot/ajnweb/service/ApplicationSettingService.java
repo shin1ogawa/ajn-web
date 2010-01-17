@@ -17,14 +17,14 @@ public class ApplicationSettingService {
 	 * @author shin1ogawa
 	 */
 	public enum SettingKey {
-		/** Twitterのアカウントのユーザ名 */
-		TWITTER_USER, //
-		/** Twitterのアカウントのパスワード */
-		TWITTER_PASSWORD,
 		/** Twitter:OAuth ConsumerKey */
 		TWITTER_OAUTH_CONSUMER_KEY,
 		/** Twitter:OAuth ConsumerSecret */
-		TWITTER_OAUTH_CONSUMER_SECRET;
+		TWITTER_OAUTH_CONSUMER_SECRET,
+		/** Twitter:OAuth AccessToken */
+		TWITTER_OAUTH_TOKEN,
+		/** Twitter:OAuth TokenSecret */
+		TWITTER_OAUTH_TOKEN_SECRET;
 	}
 
 

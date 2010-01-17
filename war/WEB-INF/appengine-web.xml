@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
   <application>ajn-web</application>
-  <version>2009-12-31</version>
+  <version>2010-01-17</version>
   
   <static-files>
     <include path="resources/**.*" />
@@ -20,7 +20,5 @@
   
   <system-properties>
     <property name="java.util.logging.config.file" value="WEB-INF/classes/logging.properties"/>
-    <property name="twitter4j.oauth.consumerKey" value="DcSwxkuzSkvLAl4ej7dw"/>
-    <property name="twitter4j.oauth.consumerSecret" value="21iRmb3wfRbnbmo9uXJLo4OAyfJqzHd5NQVzm6viY"/>
   </system-properties>
 </appengine-web-app>

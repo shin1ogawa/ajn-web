@@ -92,15 +92,21 @@ public class CheckEnvironment extends HttpServlet {
 
 	private void updateStatus(String status) throws TwitterException {
 		logger.info(status);
-		String twitterUser =
-				ApplicationSettingService
-					.get(ApplicationSettingService.SettingKey.TWITTER_USER, "");
-		String twitterPassword =
+		String consumerKey =
 				ApplicationSettingService.get(
-						ApplicationSettingService.SettingKey.TWITTER_PASSWORD, "");
-		if (StringUtils.isNotEmpty(twitterUser) && StringUtils.isNotEmpty(twitterPassword)) {
-			Twitter twitter = new Twitter(twitterUser, twitterPassword);
-			twitter.updateStatus(status);
-		}
+						ApplicationSettingService.SettingKey.TWITTER_OAUTH_CONSUMER_KEY, "");
+		String consumerSecret =
+				ApplicationSettingService.get(
+						ApplicationSettingService.SettingKey.TWITTER_OAUTH_CONSUMER_SECRET, "");
+		String accessToken =
+				ApplicationSettingService.get(
+						ApplicationSettingService.SettingKey.TWITTER_OAUTH_TOKEN, "");
+		String tokenSecret =
+				ApplicationSettingService.get(
+						ApplicationSettingService.SettingKey.TWITTER_OAUTH_TOKEN_SECRET, "");
+		Twitter twitter = new Twitter();
+		twitter.setOAuthConsumer(consumerKey, consumerSecret);
+		twitter.setOAuthAccessToken(accessToken, tokenSecret);
+		twitter.updateStatus(status);
 	}
 }

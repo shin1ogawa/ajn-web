@@ -22,10 +22,11 @@ public class ApplicationSettingServiceTest {
 	 */
 	@Test
 	public void 存在する設定値を取得する() {
-		ApplicationSettingService.put(ApplicationSettingService.SettingKey.TWITTER_USER, "hoge");
+		ApplicationSettingService.put(
+				ApplicationSettingService.SettingKey.TWITTER_OAUTH_CONSUMER_KEY, "hoge");
 		String value =
-				ApplicationSettingService.get(ApplicationSettingService.SettingKey.TWITTER_USER,
-						"default");
+				ApplicationSettingService.get(
+						ApplicationSettingService.SettingKey.TWITTER_OAUTH_CONSUMER_KEY, "default");
 		assertThat(value, is(equalTo("hoge")));
 	}
 
@@ -35,8 +36,8 @@ public class ApplicationSettingServiceTest {
 	@Test
 	public void 存在しない設定値を取得する() {
 		String value =
-				ApplicationSettingService.get(ApplicationSettingService.SettingKey.TWITTER_USER,
-						"default");
+				ApplicationSettingService.get(
+						ApplicationSettingService.SettingKey.TWITTER_OAUTH_CONSUMER_KEY, "default");
 		assertThat(value, is(equalTo("default")));
 	}
 

@@ -60,14 +60,23 @@ public class CountDaily extends HttpServlet {
 	private void updateStatus(int year, int month, int day) {
 		try {
 			String ymdString = String.format("%04d-%02d-%02d", year, month, day);
-			String twitterUser =
+			String consumerKey =
 					ApplicationSettingService.get(
-							ApplicationSettingService.SettingKey.TWITTER_USER, "");
-			String twitterPassword =
+							ApplicationSettingService.SettingKey.TWITTER_OAUTH_CONSUMER_KEY, "");
+			String consumerSecret =
 					ApplicationSettingService.get(
-							ApplicationSettingService.SettingKey.TWITTER_PASSWORD, "");
-			if (StringUtils.isNotEmpty(twitterUser) && StringUtils.isNotEmpty(twitterPassword)) {
-				Twitter twitter = new Twitter(twitterUser, twitterPassword);
+							ApplicationSettingService.SettingKey.TWITTER_OAUTH_CONSUMER_SECRET, "");
+			String accessToken =
+					ApplicationSettingService.get(
+							ApplicationSettingService.SettingKey.TWITTER_OAUTH_TOKEN, "");
+			String tokenSecret =
+					ApplicationSettingService.get(
+							ApplicationSettingService.SettingKey.TWITTER_OAUTH_TOKEN_SECRET, "");
+			if (StringUtils.isNotEmpty(consumerKey) && StringUtils.isNotEmpty(consumerSecret)
+					&& StringUtils.isNotEmpty(accessToken) && StringUtils.isNotEmpty(tokenSecret)) {
+				Twitter twitter = new Twitter();
+				twitter.setOAuthConsumer(consumerKey, consumerSecret);
+				twitter.setOAuthAccessToken(accessToken, tokenSecret);
 				String status =
 						ymdString + "のAppEngine関連のつぶやきをまとめました。 http://ajn-web.appspot.com/day/"
 								+ ymdString;
