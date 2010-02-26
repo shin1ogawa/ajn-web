@@ -6,7 +6,8 @@
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
   <properties>
-    <appengine.version>1.3.0</appengine.version>
+    <appengine.version>1.3.1</appengine.version>
+    <gaejtools.version>1.3.0</gaejtools.version>
     <wicket.version>1.4.3</wicket.version>
     <eclipse.generated.src>.apt_generated</eclipse.generated.src>
   </properties>
@@ -52,6 +53,13 @@
       <version>${appengine.version}</version>
       <type>jar</type>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.appengine</groupId>
+      <artifactId>appengine-testing</artifactId>
+      <version>${appengine.version}</version>
+      <type>jar</type>
+      <scope>test</scope>
     </dependency>
     <!-- slim3 -->
     <dependency>
@@ -120,7 +128,7 @@
     <dependency>
       <groupId>jp.sourceforge.gaejtools</groupId>
       <artifactId>gaejtools-wicket-util</artifactId>
-      <version>${appengine.version}-SNAPSHOT</version>
+      <version>${gaejtools.version}-SNAPSHOT</version>
     </dependency>
     <!--servlet -->
     <dependency>
