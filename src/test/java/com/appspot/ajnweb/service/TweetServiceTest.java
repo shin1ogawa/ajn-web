@@ -14,6 +14,7 @@ import appengine.test.util.AppEngineTestUtil;
 
 import com.appspot.ajnweb.meta.TweetMeta;
 import com.appspot.ajnweb.model.Tweet;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 import static org.hamcrest.Matchers.*;
 
@@ -75,14 +76,19 @@ public class TweetServiceTest {
 		assertThat(recent3.size(), is(equalTo(10)));
 	}
 
+
+	LocalServiceTestHelper helper;
+
+
 	/**
 	 * テスト環境を起動する。
 	 * @throws IOException
 	 */
 	@Before
 	public void setUp() throws IOException {
-		AppEngineTestUtil.setUpAppEngine(new LocalEnvironment("ajn-web", "serviceTest"),
-				"target/serviceTest", "war", true);
+		helper =
+				AppEngineTestUtil.setUpAppEngine(new LocalEnvironment("ajn-web", "serviceTest"),
+						"target/serviceTest", "war", true);
 	}
 
 	/**
@@ -90,6 +96,6 @@ public class TweetServiceTest {
 	 */
 	@After
 	public void tearDown() {
-		AppEngineTestUtil.tearDownAppEngine();
+		AppEngineTestUtil.tearDownAppEngine(helper);
 	}
 }

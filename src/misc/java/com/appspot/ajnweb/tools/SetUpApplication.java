@@ -14,6 +14,7 @@ import appengine.util.MakeSyncCallServletDelegate;
 import com.appspot.ajnweb.model.ApplicationSetting;
 import com.appspot.ajnweb.service.ApplicationSettingService;
 import com.appspot.ajnweb.service.ApplicationSettingService.SettingKey;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 /**
  * デプロイ環境へ接続して、Applicationの初期状態を作成する。
@@ -74,11 +75,17 @@ public class SetUpApplication {
 		}
 	}
 
+
+	static LocalServiceTestHelper helper;
+
+
 	static void setUpBeforeClass() throws IOException {
-		AppEngineTestUtil.setUpAppEngine(new LocalEnvironment(), "target/setup", "war", false);
+		helper =
+				AppEngineTestUtil.setUpAppEngine(new LocalEnvironment(), "target/setup", "war",
+						false);
 	}
 
 	static void tearDownAfterClass() {
-		AppEngineTestUtil.tearDownAppEngine();
+		AppEngineTestUtil.tearDownAppEngine(helper);
 	}
 }

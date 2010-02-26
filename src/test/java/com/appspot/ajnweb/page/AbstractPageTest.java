@@ -11,6 +11,7 @@ import org.junit.BeforeClass;
 
 import appengine.test.util.AppEngineTestUtil;
 
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.google.apphosting.api.ApiProxy;
 
 /**
@@ -30,16 +31,21 @@ public class AbstractPageTest {
 			testDir.mkdirs();
 		}
 		FileUtils.copyDirectory(new File("src/test/resources/pagetest"), testDir);
-		AppEngineTestUtil.setUpAppEngine(new LocalEnvironment("ajn-web", "pageTest"),
-				"target/pageTest", "war", false);
+		helper =
+				AppEngineTestUtil.setUpAppEngine(new LocalEnvironment("ajn-web", "pageTest"),
+						"target/pageTest", "war", false);
 	}
+
+
+	static LocalServiceTestHelper helper;
+
 
 	/**
 	 * AppEngineのローカル環境を停止する。
 	 */
 	@AfterClass
 	public static void tearDownAfterClass() {
-		AppEngineTestUtil.tearDownAppEngine();
+		AppEngineTestUtil.tearDownAppEngine(helper);
 	}
 
 

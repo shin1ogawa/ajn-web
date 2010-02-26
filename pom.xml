@@ -9,6 +9,7 @@
     <appengine.version>1.3.1</appengine.version>
     <gaejtools.version>1.3.0</gaejtools.version>
     <wicket.version>1.4.3</wicket.version>
+    <slim3.version>EA1-SNAPSHOT</slim3.version>
     <eclipse.generated.src>.apt_generated</eclipse.generated.src>
   </properties>
   <dependencies>
@@ -65,13 +66,13 @@
     <dependency>
       <groupId>org.slim3</groupId>
       <artifactId>slim3</artifactId>
-      <version>EA1-SNAPSHOT</version>
+      <version>${slim3.version}</version>
       <type>jar</type>
     </dependency>
     <dependency>
       <groupId>org.slim3</groupId>
       <artifactId>slim3-gen</artifactId>
-      <version>EA1-SNAPSHOT</version>
+      <version>${slim3.version}</version>
       <scope>compile</scope>
       <type>jar</type>
       <exclusions>
@@ -377,7 +378,7 @@ validationExclusions=src/misc/java/**/*
               <content>
                 <![CDATA[
 <factorypath>
-    <factorypathentry kind="WKSPJAR" id="/${artifactId}/lib/slim3-gen-EA1-SNAPSHOT.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="WKSPJAR" id="/${artifactId}/lib/slim3-gen-${slim3.version}.jar" enabled="true" runInBatchMode="false"/>
 </factorypath>
                  ]]>
               </content>

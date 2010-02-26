@@ -24,6 +24,7 @@ import com.appspot.ajnweb.meta.DailyMeta;
 import com.appspot.ajnweb.meta.TweetMeta;
 import com.appspot.ajnweb.model.Daily;
 import com.appspot.ajnweb.model.Tweet;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 import static org.hamcrest.Matchers.*;
 
@@ -92,18 +93,23 @@ public class DailyServiceTest {
 			testDir.mkdirs();
 		}
 		FileUtils.copyDirectory(new File("src/test/resources/testdata01"), testDir);
-		AppEngineTestUtil.setUpAppEngine(new LocalEnvironment("ajn-web", "serviceTest"),
-				"target/serviceTest", "war", false);
+		helper =
+				AppEngineTestUtil.setUpAppEngine(new LocalEnvironment("ajn-web", "serviceTest"),
+						"target/serviceTest", "war", false);
 		// 想定通りのデータが読み込めているか確認しておく。
 		assertThat(Datastore.query(new TweetMeta()).count(), is(equalTo(30)));
 	}
+
+
+	static LocalServiceTestHelper helper;
+
 
 	/**
 	 * テスト環境を終了する。
 	 */
 	@AfterClass
 	public static void tearDownAfterClass() {
-		AppEngineTestUtil.tearDownAppEngine();
+		AppEngineTestUtil.tearDownAppEngine(helper);
 	}
 
 	/**

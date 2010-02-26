@@ -29,7 +29,7 @@ public class CheckEnvironment extends HttpServlet {
 
 	static final String EXPECTED_DATACENTER = "na1";
 
-	static final String EXPECETD_SERVERINFO = "Google App Engine/1.3.0";
+	static final String EXPECETD_SERVERINFO = "Google App Engine/1.3.1";
 
 	static final Logger logger = Logger.getLogger(CheckEnvironment.class.getName());
 

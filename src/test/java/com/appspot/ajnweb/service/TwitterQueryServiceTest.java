@@ -19,6 +19,7 @@ import appengine.test.util.TaskQueueTestUtil.HookTaskQueueDelegateHandlerAdapter
 import com.appspot.ajnweb.meta.TwitterQueryMeta;
 import com.appspot.ajnweb.model.TwitterQuery;
 import com.google.appengine.api.labs.taskqueue.TaskQueuePb.TaskQueueAddRequest;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 import static org.hamcrest.Matchers.*;
 
@@ -102,14 +103,19 @@ public class TwitterQueryServiceTest {
 		assertThat(requests.size(), is(greaterThan(0)));
 	}
 
+
+	LocalServiceTestHelper helper;
+
+
 	/**
 	 * テスト環境を起動する。
 	 * @throws IOException
 	 */
 	@Before
 	public void setUp() throws IOException {
-		AppEngineTestUtil.setUpAppEngine(new LocalEnvironment("ajn-web", "serviceTest"),
-				"target/serviceTest", "war", true);
+		helper =
+				AppEngineTestUtil.setUpAppEngine(new LocalEnvironment("ajn-web", "serviceTest"),
+						"target/serviceTest", "war", true);
 	}
 
 	/**
@@ -117,6 +123,6 @@ public class TwitterQueryServiceTest {
 	 */
 	@After
 	public void tearDown() {
-		AppEngineTestUtil.tearDownAppEngine();
+		AppEngineTestUtil.tearDownAppEngine(helper);
 	}
 }

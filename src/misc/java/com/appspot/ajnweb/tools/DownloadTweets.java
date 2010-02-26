@@ -32,6 +32,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.repackaged.com.google.common.util.Base64DecoderException;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.google.apphosting.api.ApiProxy;
 
 import static org.hamcrest.Matchers.*;
@@ -169,11 +170,17 @@ public class DownloadTweets {
 		return size;
 	}
 
+
+	static LocalServiceTestHelper helper;
+
+
 	static void setUpBeforeClass() throws IOException {
-		AppEngineTestUtil.setUpAppEngine(new LocalEnvironment(), "target/download", "war", false);
+		helper =
+				AppEngineTestUtil.setUpAppEngine(new LocalEnvironment(), "target/download", "war",
+						false);
 	}
 
 	static void tearDownAfterClass() {
-		AppEngineTestUtil.tearDownAppEngine();
+		AppEngineTestUtil.tearDownAppEngine(helper);
 	}
 }

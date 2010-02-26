@@ -8,10 +8,15 @@ import java.util.Date;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
-import com.google.appengine.api.datastore.dev.LocalDatastoreService;
 import com.google.appengine.tools.development.ApiProxyLocal;
-import com.google.appengine.tools.development.ApiProxyLocalImpl;
+import com.google.appengine.tools.development.LocalServerEnvironment;
+import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalMailServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalMemcacheServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.google.appengine.tools.development.testing.LocalURLFetchServiceTestConfig;
 import com.google.apphosting.api.ApiProxy;
+import com.google.apphosting.api.ApiProxy.Environment;
 
 /**
  * AppEngine用のモジュールの自動テストを行うためのユーティリティクラス。
@@ -30,28 +35,65 @@ public class AppEngineTestUtil {
 	 * @param testFolderName
 	 * @param warFolderName warフォルダのパス
 	 * @param noStrage {@code true}ならファイルへの書き込みは行わない。
+	 * @return {@link LocalServiceTestHelper}
 	 * @throws IOException
 	 */
-	public static void setUpAppEngine(ApiProxy.Environment environment, String testFolderName,
-			String warFolderName, boolean noStrage) throws IOException {
+	public static LocalServiceTestHelper setUpAppEngine(final ApiProxy.Environment environment,
+			final String testFolderName, String warFolderName, boolean noStrage) throws IOException {
+		LocalServiceTestHelper helper =
+				new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig()
+					.setNoStorage(false), new LocalMemcacheServiceTestConfig(),
+						new LocalMailServiceTestConfig(), new LocalURLFetchServiceTestConfig()) {
+
+					@Override
+					protected Environment newEnvironment() {
+						return environment;
+					}
+
+					@Override
+					protected LocalServerEnvironment newLocalServerEnvironment() {
+						final LocalServerEnvironment localServerEnvironment =
+								super.newLocalServerEnvironment();
+						return new LocalServerEnvironment() {
+
+							@Override
+							public void waitForServerToStart() throws InterruptedException {
+								localServerEnvironment.waitForServerToStart();
+							}
+
+							@Override
+							public int getPort() {
+								return localServerEnvironment.getPort();
+							}
+
+							@Override
+							public File getAppDir() {
+								return new File(testFolderName);
+							}
+
+							@Override
+							public String getAddress() {
+								return localServerEnvironment.getAddress();
+							}
+						};
+					}
+
+				};
 		if (StringUtils.isNotEmpty(warFolderName) && warFolderName.equals(testFolderName) == false) {
 			copyAppEngineXmlFile(testFolderName, warFolderName, "queue.xml");
 			copyAppEngineXmlFile(testFolderName, warFolderName, "cron.xml");
 			copyAppEngineXmlFile(testFolderName, warFolderName, "datastore-indexes.xml");
 		}
-		ApiProxy.setEnvironmentForCurrentThread(environment);
-		ApiProxy.setDelegate(new ApiProxyLocalImpl(new File(testFolderName)) {
-		});
-		if (noStrage) {
-			((ApiProxyLocalImpl) ApiProxy.getDelegate()).setProperty(
-					LocalDatastoreService.NO_STORAGE_PROPERTY, Boolean.TRUE.toString());
-		}
+		helper.setUp();
+		return helper;
 	}
 
 	/**
 	 * AppEngineの自動テスト用の環境を終了する。
+	 * @param helper 
 	 */
-	public static void tearDownAppEngine() {
+	public static void tearDownAppEngine(LocalServiceTestHelper helper) {
+		helper.tearDown();
 		if (ApiProxy.getDelegate() != null) {
 			((ApiProxyLocal) ApiProxy.getDelegate()).stop();
 			ApiProxy.setDelegate(null);

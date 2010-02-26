@@ -24,6 +24,7 @@ import appengine.util.MakeSyncCallServletDelegate;
 import com.appspot.ajnweb.meta.TweetMeta;
 import com.appspot.ajnweb.model.Tweet;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 /**
  * {@link Tweet}に{@code screenName}属性を追加したので、古いデータをリモートバッチ処理で追随させる。
@@ -181,12 +182,17 @@ public class MigrationTweet1To2 {
 		password = input.readLine();
 	}
 
+
+	static LocalServiceTestHelper helper;
+
+
 	static void setUpBeforeClass() throws IOException {
-		AppEngineTestUtil.setUpAppEngine(new LocalEnvironment(), "target/MigrationTweet1To2",
-				"war", false);
+		helper =
+				AppEngineTestUtil.setUpAppEngine(new LocalEnvironment(),
+						"target/MigrationTweet1To2", "war", false);
 	}
 
 	static void tearDownAfterClass() {
-		AppEngineTestUtil.tearDownAppEngine();
+		AppEngineTestUtil.tearDownAppEngine(helper);
 	}
 }
