@@ -8,8 +8,8 @@ import org.slim3.datastore.Datastore;
 
 import twitter4j.Query;
 import twitter4j.Tweet;
-import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 import appengine.util.MemcacheUtil;
 
 import com.appspot.ajnweb.meta.TwitterQueryMeta;
@@ -77,7 +77,7 @@ public class TwitterQueryService {
 		Query query = new Query(queryString);
 		query.setLang("ja");
 		query.setRpp(returnPerPage);
-		return new Twitter().search(query).getTweets();
+		return new TwitterFactory().getInstance().search(query).getTweets();
 	}
 
 	/**

@@ -19,6 +19,8 @@ import org.slim3.datastore.Datastore;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.http.AccessToken;
 
 import com.appspot.ajnweb.meta.EnvInfoMeta;
 import com.appspot.ajnweb.model.EnvInfo;
@@ -133,9 +135,9 @@ public class CheckEnvironment extends HttpServlet {
 		String tokenSecret =
 				ApplicationSettingService.get(
 						ApplicationSettingService.SettingKey.TWITTER_OAUTH_TOKEN_SECRET, "");
-		Twitter twitter = new Twitter();
+		Twitter twitter = new TwitterFactory().getInstance();
 		twitter.setOAuthConsumer(consumerKey, consumerSecret);
-		twitter.setOAuthAccessToken(accessToken, tokenSecret);
-//		twitter.updateStatus(status);
+		twitter.setOAuthAccessToken(new AccessToken(accessToken, tokenSecret));
+		twitter.updateStatus(status);
 	}
 }

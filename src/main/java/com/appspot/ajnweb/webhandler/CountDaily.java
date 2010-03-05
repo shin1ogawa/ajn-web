@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 
 import twitter4j.Twitter;
+import twitter4j.TwitterFactory;
+import twitter4j.http.AccessToken;
 import appengine.util.AppEngineUtil;
 
 import com.appspot.ajnweb.service.ApplicationSettingService;
@@ -74,9 +76,9 @@ public class CountDaily extends HttpServlet {
 							ApplicationSettingService.SettingKey.TWITTER_OAUTH_TOKEN_SECRET, "");
 			if (StringUtils.isNotEmpty(consumerKey) && StringUtils.isNotEmpty(consumerSecret)
 					&& StringUtils.isNotEmpty(accessToken) && StringUtils.isNotEmpty(tokenSecret)) {
-				Twitter twitter = new Twitter();
+				Twitter twitter = new TwitterFactory().getInstance();
 				twitter.setOAuthConsumer(consumerKey, consumerSecret);
-				twitter.setOAuthAccessToken(accessToken, tokenSecret);
+				twitter.setOAuthAccessToken(new AccessToken(accessToken, tokenSecret));
 				String status =
 						ymdString + "のAppEngine関連のつぶやきをまとめました。 http://ajn-web.appspot.com/day/"
 								+ ymdString;

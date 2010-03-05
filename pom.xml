@@ -88,15 +88,9 @@
     </dependency>
     <!-- twitter4j -->
     <dependency>
-      <groupId>net.homeip.yusuke</groupId>
-      <artifactId>twitter4j</artifactId>
-      <version>[2.0,)</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>nlog4j</artifactId>
-        </exclusion>
-      </exclusions>
+      <groupId>org.twitter4j</groupId>
+      <artifactId>twitter4j-core</artifactId>
+      <version>2.1.0</version>
     </dependency>
     <!-- rome -->
     <dependency>
@@ -137,6 +131,11 @@
       <artifactId>servlet-api</artifactId>
       <version>2.5</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.protobuf</groupId>
+      <artifactId>protobuf-java</artifactId>
+      <version>2.3.0</version>
     </dependency>
     <!-- JUnit and hamcrest(for test) -->
     <dependency>

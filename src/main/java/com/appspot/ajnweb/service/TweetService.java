@@ -10,6 +10,7 @@ import org.slim3.datastore.EntityNotFoundRuntimeException;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 import appengine.util.MemcacheUtil;
 
 import com.appspot.ajnweb.meta.TweetMeta;
@@ -36,7 +37,7 @@ public class TweetService {
 	 * @throws TwitterException 
 	 */
 	public static void fetchAndSave(List<Long> statusIds) throws TwitterException {
-		Twitter twitter = new Twitter();
+		Twitter twitter = new TwitterFactory().getInstance();
 		List<Tweet> tweets = new ArrayList<Tweet>(statusIds.size());
 		TweetMeta meta = new TweetMeta();
 		for (Long id : statusIds) {

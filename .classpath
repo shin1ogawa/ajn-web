@@ -22,11 +22,12 @@
   <classpathentry kind="var" path="M2_REPO/jdom/jdom/1.0/jdom-1.0.jar" sourcepath="M2_REPO/jdom/jdom/1.0/jdom-1.0-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/junit/junit/4.5/junit-4.5.jar" sourcepath="M2_REPO/junit/junit/4.5/junit-4.5-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.14/log4j-1.2.14.jar" sourcepath="M2_REPO/log4j/log4j/1.2.14/log4j-1.2.14-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/com/google/protobuf/protobuf-java/2.3.0/protobuf-java-2.3.0.jar" sourcepath="M2_REPO/com/google/protobuf/protobuf-java/2.3.0/protobuf-java-2.3.0-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/rome/rome/1.0/rome-1.0.jar" sourcepath="M2_REPO/rome/rome/1.0/rome-1.0-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.5.8/slf4j-api-1.5.8.jar" sourcepath="M2_REPO/org/slf4j/slf4j-api/1.5.8/slf4j-api-1.5.8-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-log4j12/1.5.8/slf4j-log4j12-1.5.8.jar" sourcepath="M2_REPO/org/slf4j/slf4j-log4j12/1.5.8/slf4j-log4j12-1.5.8-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/slim3/slim3/EA1-SNAPSHOT/slim3-EA1-SNAPSHOT.jar" sourcepath="M2_REPO/org/slim3/slim3/EA1-SNAPSHOT/slim3-EA1-SNAPSHOT-sources.jar"/>
-  <classpathentry kind="var" path="M2_REPO/net/homeip/yusuke/twitter4j/2.0.10/twitter4j-2.0.10.jar" sourcepath="M2_REPO/net/homeip/yusuke/twitter4j/2.0.10/twitter4j-2.0.10-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/twitter4j/twitter4j-core/2.1.0/twitter4j-core-2.1.0.jar" sourcepath="M2_REPO/org/twitter4j/twitter4j-core/2.1.0/twitter4j-core-2.1.0-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/apache/wicket/wicket/1.4.3/wicket-1.4.3.jar" sourcepath="M2_REPO/org/apache/wicket/wicket/1.4.3/wicket-1.4.3-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/apache/wicket/wicket-extensions/1.4.3/wicket-extensions-1.4.3.jar" sourcepath="M2_REPO/org/apache/wicket/wicket-extensions/1.4.3/wicket-extensions-1.4.3-sources.jar"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>

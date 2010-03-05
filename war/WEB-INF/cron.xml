@@ -8,7 +8,7 @@
   <cron>
     <url>/sys/checkenv</url>
     <description>check appengine environment.</description>
-    <schedule>every 1 minutes</schedule>
+    <schedule>every 3 minutes synchronized</schedule>
   </cron>
   <cron>
     <url>/sys/wicketSessionCleanup</url>

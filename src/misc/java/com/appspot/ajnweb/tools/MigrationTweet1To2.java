@@ -17,6 +17,7 @@ import org.slim3.datastore.Datastore;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 import twitter4j.User;
 import appengine.test.util.AppEngineTestUtil;
 import appengine.util.MakeSyncCallServletDelegate;
@@ -119,7 +120,7 @@ public class MigrationTweet1To2 {
 		}
 		int userCount = 0;
 		for (Integer userId : users) {
-			Twitter twitter = new Twitter();
+			Twitter twitter = new TwitterFactory().getInstance();
 			User user;
 			try {
 				user = twitter.showUser(String.valueOf(userId));
