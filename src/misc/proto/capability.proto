@@ -1,0 +1,43 @@
+
+
+
+message CapabilityConfig {
+  enum Status{
+    ENABLED = 1;
+    SCHEDULED = 2;
+    DISABLED = 3;
+    UNKNOWN = 4;
+  }
+  optional string package = 1;
+  optional string capability = 2;
+  optional Status status = 3;
+  optional string internal_message = 4;
+  optional string admin_message = 5;
+  optional string error_message = 6;
+  optional string scheduled_time = 7;
+}
+
+message CapabilityConfigList {
+  repeated CapabilityConfig config = 1;
+  optional CapabilityConfigList default_config = 2;
+}
+
+message IsEnabledRequest {
+  optional string pacakge = 1;
+  repeated string capability = 2;
+  repeated string call = 3;
+}
+
+message IsEnabledResponse {
+  enum SummaryStatus {
+    ENABLED = 1;
+    SCHEDULED_FUTURE = 2;
+    SCHEDULED_NOW = 3;
+    DISABLED = 4;
+    UNKNOWN = 5;
+  }
+  optional SummaryStatus summary_status = 1;
+  optional int64 time_until_scheduled = 2;
+  repeated CapabilityConfig config = 3;
+}
+
